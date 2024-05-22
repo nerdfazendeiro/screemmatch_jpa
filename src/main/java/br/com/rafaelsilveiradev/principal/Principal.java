@@ -1,11 +1,14 @@
 package br.com.rafaelsilveiradev.principal;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import br.com.rafaelsilveiradev.model.DadosSerie;
 import br.com.rafaelsilveiradev.model.DadosTemporadas;
+import br.com.rafaelsilveiradev.model.Serie;
 import br.com.rafaelsilveiradev.services.ConsumoAPI;
 import br.com.rafaelsilveiradev.services.ConverteDados;
 
@@ -81,6 +84,12 @@ public class Principal {
     }
 
     private void listarSeriesBuscadas(){
-        dadosSeries.forEach(System.out::println);
+        List<Serie> series = new ArrayList<>();
+        series = dadosSeries.stream()
+                        .map(d -> new Serie(d))
+                                .collect(Collectors.toList());
+        series.stream()
+                .sorted(Comparator.comparing(Serie::getGenero))
+                .forEach(System.out::println);
     }
 }
