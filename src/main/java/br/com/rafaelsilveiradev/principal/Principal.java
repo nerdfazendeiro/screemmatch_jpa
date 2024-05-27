@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 import br.com.rafaelsilveiradev.model.DadosSerie;
 import br.com.rafaelsilveiradev.model.DadosTemporadas;
@@ -22,7 +21,6 @@ public class Principal {
     private final String ENDERECO = "https://www.omdbapi.com/?t=";
     private final String API_KEY = "&apikey=123e42a0&";
     private final String SEASON = "&season=";
-    private List<DadosSerie> dadosSeries = new ArrayList<>();
     private SerieRepository repositorio;
 
     public Principal(SerieRepository repositorio) {
@@ -66,9 +64,7 @@ public class Principal {
     private void buscarSerieWeb() {
         DadosSerie dados = getDadosSerie();
         Serie serie = new Serie(dados);
-        //dadosSeries.add(dados);
         repositorio.save(serie);
-        System.out.println(dados);
     }
 
     private DadosSerie getDadosSerie() {
@@ -92,10 +88,7 @@ public class Principal {
     }
 
     private void listarSeriesBuscadas(){
-        List<Serie> series = new ArrayList<>();
-        series = dadosSeries.stream()
-                        .map(d -> new Serie(d))
-                                .collect(Collectors.toList());
+        List<Serie> series = repositorio.findAll();
         series.stream()
                 .sorted(Comparator.comparing(Serie::getGenero))
                 .forEach(System.out::println);

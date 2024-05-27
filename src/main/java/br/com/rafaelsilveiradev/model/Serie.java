@@ -33,6 +33,9 @@ public class Serie {
     @Transient
     private List<Episodio> episodio = new ArrayList<>();
 
+    //Isto é um construtor padrão
+    public Serie() {}
+
     public Serie(DadosSerie dadosSerie){
         this.titulo = dadosSerie.titulo();
         this.totalTemporadas = dadosSerie.totalTemporadas();
