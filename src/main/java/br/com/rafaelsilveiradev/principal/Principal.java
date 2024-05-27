@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import br.com.rafaelsilveiradev.model.DadosSerie;
 import br.com.rafaelsilveiradev.model.DadosTemporadas;
 import br.com.rafaelsilveiradev.model.Serie;
+import br.com.rafaelsilveiradev.repository.SerieRepository;
 import br.com.rafaelsilveiradev.services.ConsumoAPI;
 import br.com.rafaelsilveiradev.services.ConverteDados;
 
@@ -22,6 +23,11 @@ public class Principal {
     private final String API_KEY = "&apikey=123e42a0&";
     private final String SEASON = "&season=";
     private List<DadosSerie> dadosSeries = new ArrayList<>();
+    private SerieRepository repositorio;
+
+    public Principal(SerieRepository repositorio) {
+        this.repositorio = repositorio;
+    }
 
     public void exibeMenu() {
         var opcao = -1;
@@ -59,7 +65,9 @@ public class Principal {
 
     private void buscarSerieWeb() {
         DadosSerie dados = getDadosSerie();
-        dadosSeries.add(dados);
+        Serie serie = new Serie(dados);
+        //dadosSeries.add(dados);
+        repositorio.save(serie);
         System.out.println(dados);
     }
 
