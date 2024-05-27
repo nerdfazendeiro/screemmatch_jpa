@@ -50,7 +50,7 @@ public class Principal {
                     break;
                 case 0:
                     System.out.println("Saindo...");
-                    break;
+                    System.exit(0);
                 default:
                     System.out.println("Opção inválida");
             }
