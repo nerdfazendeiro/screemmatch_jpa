@@ -192,7 +192,7 @@ public class Principal {
         var qtdTemporada = leitura.nextInt();
         System.out.println("Avaliações a partir de que valor? ");
         var avaliacao = leitura.nextDouble();
-        List<Serie> seriesPorNumeroTemporada = repositorio.findByTotalTemporadasLessThanEqualAndAvaliacaoGreaterThanEqual(qtdTemporada, avaliacao);
+        List<Serie> seriesPorNumeroTemporada = repositorio.seriesPorTemporadaeAvaliacao(qtdTemporada, avaliacao);
         System.out.println("Séries com a quantidade de temporada solicitada " + qtdTemporada + " com a Avaliação solicitada: " + avaliacao);
         seriesPorNumeroTemporada.forEach(s -> 
                     System.out.println("Série: " + s.getTitulo() + " Avaliação da Série: " + s.getAvaliacao()));
