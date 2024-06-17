@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import br.com.rafaelsilveiradev.model.Serie;
 import br.com.rafaelsilveiradev.model.Categoria;
+import br.com.rafaelsilveiradev.model.Episodio;
 public interface SerieRepository extends JpaRepository<Serie, Long>{
     Optional<Serie> findByTituloContainingIgnoreCase(String nomeSerie);
 
@@ -19,6 +20,9 @@ public interface SerieRepository extends JpaRepository<Serie, Long>{
 
     List<Serie> findByTotalTemporadasLessThanEqualAndAvaliacaoGreaterThanEqual(int qtdTemporada, Double avaliacao);
 
-    @Query("select s from Serie s WHERE s.totalTemporadas <= :qtdTemporada AND s.avaliacao >= :avaliacao")
+    @Query("SELECT s FROM Serie s WHERE s.totalTemporadas <= :qtdTemporada AND s.avaliacao >= :avaliacao")
     List<Serie> seriesPorTemporadaeAvaliacao(int qtdTemporada, Double avaliacao);
+
+    @Query("SELECT e FROM Serie s JOIN s.episodio e WHERE e.titulo ILIKE %:trechoEpisodio%")
+    List<Episodio> episodiosPorTrecho(String trechoEpisodio);
 }

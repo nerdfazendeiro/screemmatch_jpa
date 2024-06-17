@@ -46,6 +46,7 @@ public class Principal {
                     6 - Top 5 Séries
                     7 - Buscar séries por categoria
                     8 - Buscar séries por número de temporada
+                    9 - Buscar episódios por trecho
 
                     0 - Sair
                     """;
@@ -78,6 +79,9 @@ public class Principal {
                     break;
                 case 8:
                     buscarSeriePorNumeroTemporada();
+                    break;
+                case 9:
+                    buscarEpisodioPorTrecho();
                     break;
                 case 0:
                     System.out.println("Saindo...");
@@ -196,5 +200,15 @@ public class Principal {
         System.out.println("Séries com a quantidade de temporada solicitada " + qtdTemporada + " com a Avaliação solicitada: " + avaliacao);
         seriesPorNumeroTemporada.forEach(s -> 
                     System.out.println("Série: " + s.getTitulo() + " Avaliação da Série: " + s.getAvaliacao()));
+    }
+
+    private void buscarEpisodioPorTrecho(){
+        System.out.println("Digite o nome do Episodio que deseja buscar: ");
+        var trechoEpisodio = leitura.nextLine();
+        List<Episodio> episodiosEncontrados = repositorio.episodiosPorTrecho(trechoEpisodio);
+        episodiosEncontrados.forEach(e ->
+                    System.out.printf("Série: %s Temporada %s - Episodio %s - %s\n",
+                    e.getSerie().getTitulo(), e.getTemporada(),
+                    e.getNumeroEpisodio(), e.getTitulo()));
     }
 }
